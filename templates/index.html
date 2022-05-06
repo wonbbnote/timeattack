@@ -1,10 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <title>스파르타코딩클럽 | 부트스트랩 연습하기</title>
+    <script>
+
+        function loginOrnot() {
+            $.ajax({
+                type: "GET",
+                url: "/api/nick",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        console.log(response)
+                        follow(response['nickname']);
+                        su(response['nickname']);
+                        // window.location.reload() //새로고침
+
+                    } else {
+                        btn.innerText = "팔로우";
+                        unfollow(response['nickname']);
+                        su(response['nickname']);
+                    }
+                }
+            }
+        })
+        }
+
+
+        function post() {
+            let title = $('#title').val();
+            let content = $('#content').val();
+            $.ajax({
+                type: "POST",
+                url: "/test",
+                data: {title_give: title, content_give: content},
+                success: function (response) {
+                    alert('제출성공');
+                    console.log(response)
+                }
+            })
+        }
+
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/test",
+                data: {},
+                success: function (response) {
+                    console.log(response)
+                    let posts = response['post']
+                    for (let i = 0; i < posts.length; i++) {
+                        let title = posts[i]['title']
+                        let content = posts[i]['content']
+                        // let user_id = posts[i]['url']
+                        // let time = articles[i]['desc']
+
+                        temp_html = `<tr>
+            <td>${title}</td>
+            <td>${content}</td>
+            <td></td>
+        </tr>`;
+
+                    }
+                }
+            })
+
+        }
+
+
+    </script>
+
+
 </head>
 <body>
+<button type="button" class="btn btn-primary">로그아웃</button>
+<div class="board" style="border: 1px solid; display:inline-block; text-align: center; margin:auto;">
+    <p>게시판</p>
+    <p>제목</p>
+    <div><input type="text" id="title"/></div>
+    <p>내용</p>
+    <div><input type="text" id="content"/></div>
+    <div>
+        <button type="button" class="btn btn-primary" onclick="post()">제출</button>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">제목</th>
+            <th scope="col">내용</th>
+            <th scope="col">글쓴이</th>
+            <th scope="col">시각</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
+    </table>
 
 </body>
 </html>
