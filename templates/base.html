@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for category in categories %}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="button" value="{{ category.category }}">{{ category.category }}</button>
+    </form>
+{% endfor %}
+{% for product in products %}
+    <div>{{ product.name }}</div>
+    <img src="{{ product.img }}"/>
+    <p>{{ product.price }}</p>
+    <p>{{ product.stock }}</p>
+    <a href="{% url 'order' product.name %}">주문하기</a>
+{% endfor %}
+
+
+</body>
+</html>

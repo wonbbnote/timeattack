@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+</head>
+<body>
+{{ product }}
+<form method="post">
+    {% csrf_token %}
+    <p>Quantity</p>
+    <input name="quantity">
+    <p>Address</p>
+    <input name="address">
+    <button type="submit">주문</button>
+</form>
+
+
+</body>
+</html>
