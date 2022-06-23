@@ -9,9 +9,7 @@ from django.contrib.auth.hashers import make_password
 
 
 class UserView(APIView): # CBV 방식
-    # permission_classes = [permissions.IsAdminUser] # admin만 view 조회 가능
-    # permission_classes = [permissions.IsAuthenticated] # 로그인 된 사용자만 view 조회 가능
-
+    
     def get(self, request):
         return Response({'message': 'get method!!'})
         
@@ -31,7 +29,7 @@ class UserApiView(APIView):
     def post(self, request):
         username = request.data.get('username', '')
         password = request.data.get('password', '')
-        
+
 
         user = authenticate(request, username=username, password=password)
         if not user:
